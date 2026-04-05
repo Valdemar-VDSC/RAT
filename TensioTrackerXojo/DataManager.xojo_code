@@ -3,11 +3,9 @@ Protected Module DataManager
 
   #tag Method, Flags = &h1
     Private Function DataFilePath() As FolderItem
-      Var appSupport As FolderItem = SpecialFolder.ApplicationData.Child("TensioTracker")
-      If Not appSupport.Exists Then
-        appSupport.CreateFolder
-      End If
-      Return appSupport.Child("data.json")
+      Var appSupport As FolderItem = SpecialFolder.Documents
+      If appSupport = Nil Then Return Nil
+      Return appSupport.Child("tensiotracker_data.json")
     End Function
   #tag EndMethod
 
@@ -167,18 +165,13 @@ Protected Module DataManager
   // MARK: - PDF Generation
 
   #tag Method, Flags = &h0
-    Sub GeneratePDF(saveTo As FolderItem)
-      If saveTo = Nil Then Return
+    Function GeneratePDFPicture() As Picture
+      // A4 dimensions in points (scaled x2 for retina)
+      Const kPageW = 1190
+      Const kPageH = 1684
+      Const kMargin = 56
 
-      Var g As New Graphics
-      Var ps As New PrinterSetup
-
-      // A4 dimensions in points
-      Const kPageW = 595
-      Const kPageH = 842
-      Const kMargin = 28
-
-      Var p As Picture = New Picture(kPageW, kPageH)
+      Var p As New Picture(kPageW, kPageH)
       Var pg As Graphics = p.Graphics
 
       // Colors
@@ -473,11 +466,9 @@ Protected Module DataManager
       pg.Bold = False
       pg.DrawText("* additionner toutes les mesures, systoliques ou diastoliques, et diviser par 18", kMargin, y + 8)
 
-      // Save as PNG then convert concept - Xojo uses Picture.Save
-      // For real PDF, use Xojo's Graphics.SavePDF or a PDF library
-      p.Save(saveTo, Picture.SaveAsPNG)
+      Return p
 
-    End Sub
+    End Function
   #tag EndMethod
 
   #tag Property, Flags = &h0

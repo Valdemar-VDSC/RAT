@@ -1,67 +1,63 @@
-# TensioTracker - Version Xojo
+# TensioTracker - Version Xojo iOS
 
-Application de suivi d'automesure tensionnelle développée en Xojo (Desktop).
+Application iOS de suivi d'automesure tensionnelle développée en Xojo.
 
 ## Prérequis
 
-- **Xojo IDE** 2020r2 ou supérieur (https://www.xojo.com)
-- Fonctionne sur macOS, Windows et Linux
+- **Xojo IDE** 2021r3 ou supérieur avec licence iOS
+- macOS avec Xcode installé
+- Simulateur iOS ou appareil iOS
 
 ## Installation
 
 1. Ouvrir **Xojo IDE**
 2. `Fichier > Ouvrir...` → sélectionner `TensioTracker.xojo_project`
-3. Ajouter les fichiers sources au projet :
+3. Ajouter les fichiers sources au projet si nécessaire :
    - `BloodPressureReading.xojo_code`
    - `DayMeasurement.xojo_code`
    - `MeasurementSession.xojo_code`
    - `PatientProfile.xojo_code`
    - `DataManager.xojo_code`
-   - `MainWindow.xojo_window`
-4. Compiler et exécuter (`Cmd+R` / `Ctrl+R`)
+   - `ConsignesScreen.xojo_code`
+   - `MesuresScreen.xojo_code`
+   - `ProfilScreen.xojo_code`
+4. Configurer le TabBar dans l'App :
+   - Tab 1 : ConsignesScreen
+   - Tab 2 : MesuresScreen
+   - Tab 3 : ProfilScreen
+5. Compiler et exécuter (`Cmd+R`)
 
 ## Structure
 
 ```
 TensioTrackerXojo/
-├── TensioTracker.xojo_project    # Projet Xojo
-├── BloodPressureReading.xojo_code  # Modèle de lecture tensionnelle
-├── DayMeasurement.xojo_code      # Mesures d'un jour (3 matin + 3 soir)
-├── MeasurementSession.xojo_code  # Session de 3 jours
-├── PatientProfile.xojo_code      # Profil patient
-├── DataManager.xojo_code         # Persistance JSON + calcul moyennes + export
-└── MainWindow.xojo_window        # Fenêtre principale avec 3 onglets
+├── TensioTracker.xojo_project       # Projet Xojo iOS
+├── BloodPressureReading.xojo_code   # Lecture SYS/DIA/Pouls
+├── DayMeasurement.xojo_code         # 3 mesures matin + 3 soir
+├── MeasurementSession.xojo_code     # Session de 3 jours
+├── PatientProfile.xojo_code         # Profil patient
+├── DataManager.xojo_code            # Persistance JSON + moyennes + export
+├── ConsignesScreen.xojo_code        # Écran Consignes
+├── MesuresScreen.xojo_code          # Écran Saisie des mesures
+└── ProfilScreen.xojo_code           # Écran Profil + Export
 ```
 
 ## Fonctionnalités
 
-### Onglet Consignes
-- Recommandations de mesure conformes aux directives françaises
-- Protocole (3 jours, 3 mesures matin/soir, 1 min entre chaque)
+### Écran Consignes
+- Recommandations de mesure (protocole français)
 
-### Onglet Mesures
-- Sélection Jour 1/2/3 avec date
-- Saisie SYS/DIA/Pouls pour 3 mesures matin + 3 mesures soir
-- Calcul automatique des moyennes (matin, soir, générale)
-- Indicateur coloré : vert si < 135/85, rouge si élevé
+### Écran Mesures
+- Sélection Jour 1/2/3 via SegmentedControl
+- Saisie SYS/DIA/Pouls (clavier numérique)
+- 3 mesures matin + 3 mesures soir
+- Moyennes automatiques (matin, soir, générale)
+- Indicateur coloré selon seuil 135/85
 
-### Onglet Profil
-- Nom, prénom, date de naissance
-- Médicaments antihypertenseurs
-- Export du relevé au format image (PNG)
-- Sauvegarde du profil
+### Écran Profil
+- Nom, prénom, médicaments
+- Export du relevé via MobileSharingPanel
+- Nouvelle session
 
 ### Persistance
-- Données sauvegardées en JSON dans `~/Application Support/TensioTracker/data.json`
-
-### Export
-- Génération d'un relevé reproduisant la fiche officielle
-- Tableau 3 jours × Matin/Soir avec valeurs
-- Moyennes systolique et diastolique calculées
-
-## Notes
-
-- L'export utilise `Picture.Save` en PNG. Pour un vrai PDF, utiliser 
-  une bibliothèque PDF Xojo (comme DynaPDF ou le module `PDFDocument`
-  disponible dans Xojo 2021r3+).
-- Les données sont stockées localement en JSON.
+- JSON dans Documents (`tensiotracker_data.json`)
