@@ -38,8 +38,6 @@ class PDFGenerator {
             y = drawMainTitle(y: y)
             y += 6
             y = drawProtocolBullets(y: y)
-            y += 4
-            y = drawInscriptionLine(y: y)
             y += 8
 
             for dayIdx in 0..<3 {
@@ -58,15 +56,13 @@ class PDFGenerator {
 
     private func drawPatientInfoBox(y: CGFloat, profile: PatientProfile, session: MeasurementSession, dateFmt: DateFormatter) -> CGFloat {
         let boxHeight: CGFloat = 60
-        let leftWidth = contentWidth * 0.62
-        let rightWidth = contentWidth * 0.38
 
-        // Left box
-        let leftRect = CGRect(x: margin, y: y, width: leftWidth, height: boxHeight)
+        // Single box spanning full width
+        let boxRect = CGRect(x: margin, y: y, width: contentWidth, height: boxHeight)
         blueBorder.setStroke()
-        let leftPath = UIBezierPath(rect: leftRect)
-        leftPath.lineWidth = 1.5
-        leftPath.stroke()
+        let boxPath = UIBezierPath(rect: boxRect)
+        boxPath.lineWidth = 1.5
+        boxPath.stroke()
 
         let labelAttrs: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 9),
@@ -77,7 +73,6 @@ class PDFGenerator {
             .foregroundColor: UIColor.black
         ]
 
-        let nameValue = "\(profile.lastName) \(profile.firstName)".trimmingCharacters(in: .whitespaces)
         let px: CGFloat = margin + 8
         var py = y + 8
 
@@ -108,18 +103,7 @@ class PDFGenerator {
         let treatLine = NSMutableAttributedString()
         treatLine.append(NSAttributedString(string: "Traitement : ", attributes: labelAttrs))
         treatLine.append(NSAttributedString(string: medText.isEmpty ? "…………………………………………………………………" : medText, attributes: medText.isEmpty ? labelAttrs : valueAttrs))
-        treatLine.draw(in: CGRect(x: px, y: py, width: leftWidth - 16, height: 14))
-
-        // Right box - "Cachet de l'officine"
-        let rightRect = CGRect(x: margin + leftWidth, y: y, width: rightWidth, height: boxHeight)
-        blueBorder.setStroke()
-        UIBezierPath(rect: rightRect).stroke()
-
-        let cachetAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 8),
-            .foregroundColor: UIColor.gray
-        ]
-        drawCenteredText("Cachet de l'officine", in: CGRect(x: rightRect.minX, y: y + 6, width: rightWidth, height: 14), attributes: cachetAttrs)
+        treatLine.draw(in: CGRect(x: px, y: py, width: contentWidth - 16, height: 14))
 
         return y + boxHeight
     }
@@ -213,30 +197,7 @@ class PDFGenerator {
         return py
     }
 
-    // MARK: - 5. Inscription Line
-
-    private func drawInscriptionLine(y: CGFloat) -> CGFloat {
-        let normalAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 8.5),
-            .foregroundColor: purpleText
-        ]
-        let boldAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 8.5),
-            .foregroundColor: purpleText
-        ]
-
-        let line = NSMutableAttributedString()
-        line.append(NSAttributedString(string: "Inscrire ", attributes: normalAttrs))
-        line.append(NSAttributedString(string: "tous les chiffres", attributes: boldAttrs))
-        line.append(NSAttributedString(string: " qui apparaissent sur l'écran du tensiomètre", attributes: normalAttrs))
-
-        let size = line.size()
-        line.draw(at: CGPoint(x: margin + (contentWidth - size.width) / 2, y: y))
-
-        return y + 14
-    }
-
-    // MARK: - 6. Day Table
+    // MARK: - 5. Day Table
 
     private func drawDayTable(y: CGFloat, dayIdx: Int, session: MeasurementSession, dateFmt: DateFormatter) -> CGFloat {
         let tableX = margin
@@ -393,15 +354,14 @@ class PDFGenerator {
         return cy
     }
 
-    // MARK: - 7. Averages & Device
+    // MARK: - 6. Averages
 
     private func drawAveragesAndDevice(y: CGFloat, viewModel: MeasurementViewModel) -> CGFloat {
         let tableX = margin
-        let halfW = contentWidth / 2.0
         let boxH: CGFloat = 52
 
-        // === Left: Averages ===
-        let avgRect = CGRect(x: tableX, y: y, width: halfW, height: boxH)
+        // Full-width averages box
+        let avgRect = CGRect(x: tableX, y: y, width: contentWidth, height: boxH)
         lightGreen.setFill()
         UIBezierPath(rect: avgRect).fill()
         greenDark.setStroke()
@@ -418,7 +378,7 @@ class PDFGenerator {
             .foregroundColor: greenDark
         ]
 
-        let colW = halfW / 2.0
+        let colW = contentWidth / 2.0
 
         // Moyenne Systolique
         let sysTitle = "MOYENNE\nSYSTOLIQUE *"
@@ -443,36 +403,6 @@ class PDFGenerator {
 
         let diaVal = viewModel.formatAverage(viewModel.generalAverageDia)
         drawCenteredText(diaVal, in: CGRect(x: tableX + colW, y: y + 30, width: colW, height: 18), attributes: avgValueAttrs)
-
-        // === Right: Autotensiomètre ===
-        let devRect = CGRect(x: tableX + halfW, y: y, width: halfW, height: boxH)
-        UIColor.white.setFill()
-        UIRectFill(devRect)
-        blueBorder.setStroke()
-        let devBorder = UIBezierPath(rect: devRect)
-        devBorder.lineWidth = 1.5
-        devBorder.stroke()
-
-        let devTitleAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 9),
-            .foregroundColor: purpleText
-        ]
-        let devLabelAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 8),
-            .foregroundColor: UIColor.darkGray
-        ]
-
-        let dx = tableX + halfW + 10
-        drawCenteredText("Autotensiomètre", in: CGRect(x: tableX + halfW, y: y + 4, width: halfW, height: 14), attributes: devTitleAttrs)
-
-        let marqueText = "Marque : ………………     Modèle : ………………"
-        marqueText.draw(at: CGPoint(x: dx, y: y + 20), withAttributes: devLabelAttrs)
-
-        let checkAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 8),
-            .foregroundColor: purpleText
-        ]
-        "☐ poignet              ☐ bras".draw(at: CGPoint(x: dx + 20, y: y + 36), withAttributes: checkAttrs)
 
         return y + boxH
     }
