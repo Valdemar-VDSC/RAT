@@ -9,7 +9,7 @@
       <stop offset="100%" style="stop-color:#D5E8F0;stop-opacity:1" />
     </linearGradient>
     <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feGaussianBlur stdDeviation="18" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -21,57 +21,57 @@
   <rect width="1024" height="1024" fill="url(#bg)"/>
 
   <!-- Subtle radial glow behind heart -->
-  <circle cx="512" cy="420" r="280" fill="white" opacity="0.06"/>
-  <circle cx="512" cy="420" r="220" fill="white" opacity="0.05"/>
+  <circle cx="512" cy="430" r="400" fill="white" opacity="0.06"/>
+  <circle cx="512" cy="430" r="320" fill="white" opacity="0.05"/>
 
   <!-- Outer ring -->
-  <circle cx="512" cy="430" r="260" fill="none" stroke="white" stroke-width="3" opacity="0.15"/>
+  <circle cx="512" cy="430" r="370" fill="none" stroke="white" stroke-width="4" opacity="0.15"/>
 
   <!-- Progress arc 3/4 -->
-  <circle cx="512" cy="430" r="260" fill="none" stroke="white" stroke-width="4.5" opacity="0.5"
-    stroke-dasharray="1225 408"
+  <circle cx="512" cy="430" r="370" fill="none" stroke="white" stroke-width="6" opacity="0.5"
+    stroke-dasharray="1745 582"
     stroke-linecap="round"
     transform="rotate(-90 512 430)"/>
 
-  <!-- Heart (proper SVG heart path) -->
+  <!-- Heart (scaled up ~1.45x, centered) -->
   <g filter="url(#glow)">
-    <path d="M512 600
-      C512 600, 340 480, 340 370
-      C340 310, 380 260, 430 260
-      C465 260, 495 285, 512 310
-      C529 285, 559 260, 594 260
-      C644 260, 684 310, 684 370
-      C684 480, 512 600, 512 600Z"
+    <path d="M512 690
+      C512 690, 262 515, 262 355
+      C262 278, 320 210, 392 210
+      C440 210, 480 245, 512 280
+      C544 245, 584 210, 632 210
+      C704 210, 762 278, 762 355
+      C762 515, 512 690, 512 690Z"
       fill="url(#heartGrad)" opacity="0.95"/>
   </g>
 
-  <!-- ECG waveform across the heart area -->
+  <!-- ECG waveform -->
   <polyline
-    points="260,680 360,680 400,680 430,680 455,640 475,720 500,610 525,700 545,660 565,680 610,680 740,680"
+    points="120,790 250,790 310,790 355,790 390,730 420,850 460,690 500,830 535,760 560,790 620,790 900,790"
     fill="none"
     stroke="white"
-    stroke-width="7"
+    stroke-width="9"
     stroke-linecap="round"
     stroke-linejoin="round"
     opacity="0.75"/>
 
-  <!-- Second subtle waveform behind (depth effect) -->
+  <!-- Second subtle waveform (depth) -->
   <polyline
-    points="300,695 380,695 410,695 435,695 455,670 475,730 498,645 520,715 540,680 558,695 600,695 710,695"
+    points="160,815 280,815 330,815 365,815 395,770 420,870 458,720 495,850 530,785 555,815 610,815 870,815"
     fill="none"
     stroke="white"
-    stroke-width="3"
+    stroke-width="4"
     stroke-linecap="round"
     stroke-linejoin="round"
     opacity="0.2"/>
 
-  <!-- Small measurement indicators -->
-  <rect x="340" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
-  <text x="390" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.8">SYS</text>
+  <!-- Measurement indicators -->
+  <rect x="300" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="360" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.8">SYS</text>
 
-  <rect x="462" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
-  <text x="512" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.8">DIA</text>
+  <rect x="452" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="512" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.8">DIA</text>
 
-  <rect x="584" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
-  <text x="634" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.6">BPM</text>
+  <rect x="604" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="664" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.6">BPM</text>
 </svg>
