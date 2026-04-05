@@ -91,6 +91,7 @@ struct MeasurementView: View {
                 .padding(.top, 8)
             }
             .background(Color(.systemGroupedBackground))
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Mesures")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -109,6 +110,13 @@ struct MeasurementView: View {
                     } label: {
                         Image(systemName: "square.and.arrow.down")
                             .foregroundStyle(themeColor)
+                    }
+                }
+
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("OK") {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
                 }
             }

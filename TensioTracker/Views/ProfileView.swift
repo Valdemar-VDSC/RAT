@@ -76,8 +76,17 @@ struct ProfileView: View {
                     Label("Historique des sessions", systemImage: "clock.arrow.circlepath")
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Profil")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("OK") {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                }
+            }
             .onChange(of: viewModel.profile) { _, _ in
                 viewModel.saveData()
             }
