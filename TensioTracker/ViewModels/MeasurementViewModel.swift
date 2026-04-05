@@ -11,9 +11,26 @@ class MeasurementViewModel {
     private let sessionsKey = "measurement_sessions"
 
     init() {
-        self.currentSession = MeasurementSession()
-        self.profile = PatientProfile()
-        loadData()
+        // Load saved data before triggering any @Observable changes
+        var loadedProfile = PatientProfile()
+        var loadedSessions: [MeasurementSession] = []
+        var loadedCurrentSession = MeasurementSession()
+
+        if let data = UserDefaults.standard.data(forKey: "patient_profile"),
+           let decoded = try? JSONDecoder().decode(PatientProfile.self, from: data) {
+            loadedProfile = decoded
+        }
+        if let data = UserDefaults.standard.data(forKey: "measurement_sessions"),
+           let decoded = try? JSONDecoder().decode([MeasurementSession].self, from: data) {
+            loadedSessions = decoded
+            if let last = decoded.last {
+                loadedCurrentSession = last
+            }
+        }
+
+        self.profile = loadedProfile
+        self.sessions = loadedSessions
+        self.currentSession = loadedCurrentSession
     }
 
     // MARK: - Averages Calculation
