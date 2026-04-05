@@ -1,72 +1,65 @@
-#tag MobileScreen
+#tag Class
 Protected Class ConsignesScreen
   Inherits MobileScreen
 
   #tag Event
     Sub Opening()
       Self.Title = "Consignes"
-      Self.TabIcon = MobileScreen.SystemIconBookmark
-
-      PopulateConsignes
     End Sub
   #tag EndEvent
 
-  #tag Method, Flags = &h1
-    Private Sub PopulateConsignes()
-      Var text As String
+  #tag Event
+    Sub Resized()
+      If txtConsignes <> Nil Then
+        txtConsignes.Width = Self.Width
+        txtConsignes.Height = Self.Height
+      End If
+    End Sub
+  #tag EndEvent
 
-      text = "CONSIGNES DE MESURE" + EndOfLine
-      text = text + "===========================================" + EndOfLine + EndOfLine
+  #tag Method, Flags = &h0
+    Sub PopulateConsignes()
+      Var t As String
 
-      text = text + "AVANT LA MESURE" + EndOfLine
-      text = text + "• Pas de tabac, caféine, nourriture, exercice 30 min avant" + EndOfLine
-      text = text + "• Être seul dans un endroit calme" + EndOfLine
-      text = text + "• Température confortable" + EndOfLine
-      text = text + "• Se reposer 3 à 5 min avant la première mesure" + EndOfLine
-      text = text + "• Ne pas parler ni utiliser d'écran avant, pendant et entre les mesures" + EndOfLine + EndOfLine
+      t = "CONSIGNES DE MESURE" + EndOfLine
+      t = t + "===========================================" + EndOfLine + EndOfLine
 
-      text = text + "POSITION" + EndOfLine
-      text = text + "• Dos soutenu (appuyé contre le dossier)" + EndOfLine
-      text = text + "• Bras nu sur la table, brassard à mi-bras au niveau du cœur" + EndOfLine
-      text = text + "• Pieds à plat sur le sol" + EndOfLine
-      text = text + "• Taille de brassard adaptée (petit, moyen, grand)" + EndOfLine + EndOfLine
+      t = t + "AVANT LA MESURE" + EndOfLine
+      t = t + "- Pas de tabac, cafeine, nourriture, exercice 30 min avant" + EndOfLine
+      t = t + "- Etre seul dans un endroit calme" + EndOfLine
+      t = t + "- Temperature confortable" + EndOfLine
+      t = t + "- Se reposer 3 a 5 min avant la premiere mesure" + EndOfLine
+      t = t + "- Ne pas parler ni utiliser d'ecran" + EndOfLine + EndOfLine
 
-      text = text + "MATÉRIEL" + EndOfLine
-      text = text + "• Tensiomètre validé avec brassard au bras" + EndOfLine
-      text = text + "• www.stridebp.org/fr/" + EndOfLine + EndOfLine
+      t = t + "POSITION" + EndOfLine
+      t = t + "- Dos soutenu (appuye contre le dossier)" + EndOfLine
+      t = t + "- Bras nu sur la table, brassard a mi-bras" + EndOfLine
+      t = t + "- Pieds a plat sur le sol" + EndOfLine
+      t = t + "- Taille de brassard adaptee" + EndOfLine + EndOfLine
 
-      text = text + "PROTOCOLE" + EndOfLine
-      text = text + "===========================================" + EndOfLine
-      text = text + "• 3 jours consécutifs" + EndOfLine
-      text = text + "• 3 mesures le matin (avant petit-déjeuner et médicaments)" + EndOfLine
-      text = text + "• 3 mesures le soir (avant le coucher)" + EndOfLine
-      text = text + "• Toujours le même bras" + EndOfLine
-      text = text + "• 1 minute entre chaque mesure" + EndOfLine + EndOfLine
+      t = t + "MATERIEL" + EndOfLine
+      t = t + "- Tensiometre valide avec brassard au bras" + EndOfLine
+      t = t + "- www.stridebp.org/fr/" + EndOfLine + EndOfLine
 
-      text = text + "OBJECTIF TENSIONNEL" + EndOfLine
-      text = text + "< 135 / 85 mmHg en automesure." + EndOfLine
-      text = text + "Consultez votre médecin pour un objectif personnalisé."
+      t = t + "PROTOCOLE" + EndOfLine
+      t = t + "===========================================" + EndOfLine
+      t = t + "- 3 jours consecutifs" + EndOfLine
+      t = t + "- 3 mesures le matin (avant petit-dejeuner)" + EndOfLine
+      t = t + "- 3 mesures le soir (avant le coucher)" + EndOfLine
+      t = t + "- Toujours le meme bras" + EndOfLine
+      t = t + "- 1 minute entre chaque mesure" + EndOfLine + EndOfLine
 
-      txtConsignes.Text = text
+      t = t + "OBJECTIF TENSIONNEL" + EndOfLine
+      t = t + "< 135 / 85 mmHg en automesure." + EndOfLine
+      t = t + "Consultez votre medecin."
+
+      txtConsignes.Text = t
     End Sub
   #tag EndMethod
 
-  // Controls
-  #tag Control
-    Begin MobileTextArea txtConsignes
-      Left            =   0
-      Top             =   0
-      Width           =   320
-      Height          =   568
-      LockLeft        =   True
-      LockTop         =   True
-      LockRight       =   True
-      LockBottom      =   True
-      ReadOnly        =   True
-      Text            =   ""
-      FontSize        =   14
-    End
-  #tag EndControl
+  #tag Property, Flags = &h0
+    txtConsignes As MobileTextArea
+  #tag EndProperty
 
 End Class
-#tag EndMobileScreen
+#tag EndClass
