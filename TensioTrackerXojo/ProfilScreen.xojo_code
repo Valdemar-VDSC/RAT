@@ -18,6 +18,84 @@ Begin MobileScreen ProfilScreen
    Title           =   "Untitled"
    Top             =   0
    _mTabBarVisible =   False
+   Begin MobileLabel lblNomLabel
+      Enabled = True
+      Height = 20
+      Left = 20
+      Text = "Nom"
+      Top = 75
+      Visible = True
+      Width = 335
+   End
+   Begin MobileTextField tfNom
+      Enabled = True
+      Height = 35
+      Left = 20
+      Top = 95
+      Visible = True
+      Width = 335
+   End
+   Begin MobileLabel lblPrenomLabel
+      Enabled = True
+      Height = 20
+      Left = 20
+      Text = "Prenom"
+      Top = 140
+      Visible = True
+      Width = 335
+   End
+   Begin MobileTextField tfPrenom
+      Enabled = True
+      Height = 35
+      Left = 20
+      Top = 160
+      Visible = True
+      Width = 335
+   End
+   Begin MobileLabel lblMedsLabel
+      Enabled = True
+      Height = 20
+      Left = 20
+      Text = "Medicaments"
+      Top = 205
+      Visible = True
+      Width = 335
+   End
+   Begin MobileTextArea taMeds
+      Enabled = True
+      Height = 80
+      Left = 20
+      Top = 225
+      Visible = True
+      Width = 335
+   End
+   Begin MobileButton btnSaveProfile
+      Enabled = True
+      Height = 40
+      Left = 20
+      Caption = "Enregistrer"
+      Top = 320
+      Visible = True
+      Width = 335
+   End
+   Begin MobileButton btnExportPDF
+      Enabled = True
+      Height = 44
+      Left = 20
+      Caption = "Exporter le releve en PDF"
+      Top = 370
+      Visible = True
+      Width = 335
+   End
+   Begin MobileButton btnNewSession
+      Enabled = True
+      Height = 40
+      Left = 20
+      Caption = "Nouvelle session"
+      Top = 425
+      Visible = True
+      Width = 335
+   End
 End
 #tag EndMobileScreen
 
@@ -79,18 +157,30 @@ End
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		taMeds As MobileTextArea
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		tfNom As MobileTextField
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		tfPrenom As MobileTextField
-	#tag EndProperty
-
 
 #tag EndWindowCode
+
+#tag Events btnSaveProfile
+	#tag Event
+		Sub Pressed()
+		  OnSaveProfilePressed
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+
+#tag Events btnExportPDF
+	#tag Event
+		Sub Pressed()
+		  OnExportPressed
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+
+#tag Events btnNewSession
+	#tag Event
+		Sub Pressed()
+		  OnNewSessionPressed
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 

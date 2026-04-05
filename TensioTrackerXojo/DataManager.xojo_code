@@ -1,15 +1,13 @@
 #tag Module
 Protected Module DataManager
 	#tag Method, Flags = &h0
-		Sub ()
-		  Function MorningAverageSys() As Double
-		    Return ComputeAverage("morning", "sys")
-		End Sub
+		Function MorningAverageSys() As Double
+		  Return ComputeAverage("morning", "sys")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ()
-		  Function GeneratePDFPicture() As Picture
+		Function GeneratePDFPicture() As Picture
 		    // A4 dimensions in points (scaled x2 for retina)
 		    Const kPageW = 1190
 		    Const kPageH = 1684
@@ -310,9 +308,9 @@ Protected Module DataManager
 		    pg.Bold = False
 		    pg.DrawText("* additionner toutes les mesures, systoliques ou diastoliques, et diviser par 18", kMargin, y + 8)
 		    
-		    Return p
-		    
-		End Sub
+		  Return p
+
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21

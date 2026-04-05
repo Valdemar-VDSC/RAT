@@ -61,16 +61,6 @@ End
 		End Sub
 	#tag EndEvent
 
-	#tag Event
-		Sub Resized()
-		  If txtConsignes <> Nil Then
-		    txtConsignes.Width = Self.Width
-		    txtConsignes.Height = Self.Height
-		  End If
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h0
 		Sub PopulateConsignes()
 		  Var t As String
@@ -107,14 +97,10 @@ End
 		  t = t + "< 135 / 85 mmHg en automesure." + EndOfLine
 		  t = t + "Consultez votre medecin."
 		  
-		  txtConsignes.Text = t
+		  txtConsigne.Text = t
 		End Sub
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h0
-		txtConsignes As MobileTextArea
-	#tag EndProperty
 
 
 #tag EndWindowCode
