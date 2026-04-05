@@ -1,19 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1A5276;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#1A5276;stop-opacity:0.92" />
+      <stop offset="0%" style="stop-color:#2471A3;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#0D3559;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="heartGrad" x1="50%" y1="0%" x2="50%" y2="100%">
       <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#E8E8E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D5E8F0;stop-opacity:1" />
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#000000" flood-opacity="0.25"/>
-    </filter>
-    <filter id="glowHeart" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -22,54 +18,60 @@
   </defs>
 
   <!-- Background -->
-  <rect width="1024" height="1024" rx="0" ry="0" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
 
-  <!-- Subtle circle background -->
-  <circle cx="512" cy="440" r="240" fill="white" opacity="0.08"/>
-  <circle cx="512" cy="440" r="200" fill="white" opacity="0.06"/>
+  <!-- Subtle radial glow behind heart -->
+  <circle cx="512" cy="420" r="280" fill="white" opacity="0.06"/>
+  <circle cx="512" cy="420" r="220" fill="white" opacity="0.05"/>
 
-  <!-- Ring around heart -->
-  <circle cx="512" cy="440" r="210" fill="none" stroke="white" stroke-width="4" opacity="0.25"/>
+  <!-- Outer ring -->
+  <circle cx="512" cy="430" r="260" fill="none" stroke="white" stroke-width="3" opacity="0.15"/>
 
-  <!-- Partial arc (progress indicator) -->
-  <circle cx="512" cy="440" r="210" fill="none" stroke="white" stroke-width="5" opacity="0.6"
-    stroke-dasharray="990 330"
+  <!-- Progress arc 3/4 -->
+  <circle cx="512" cy="430" r="260" fill="none" stroke="white" stroke-width="4.5" opacity="0.5"
+    stroke-dasharray="1225 408"
     stroke-linecap="round"
-    transform="rotate(-90 512 440)"/>
+    transform="rotate(-90 512 430)"/>
 
-  <!-- Heart shape -->
-  <g filter="url(#glowHeart)" transform="translate(512, 420) scale(1.0)">
-    <path d="M0 60
-      C0 60, -120 -60, -120 -30
-      C-120 30, -60 60, 0 120
-      C60 60, 120 30, 120 -30
-      C120 -60, 0 60, 0 60Z"
-      fill="url(#heartGrad)"
-      transform="scale(1.6) translate(0, -20)"
-      opacity="0.95"/>
+  <!-- Heart (proper SVG heart path) -->
+  <g filter="url(#glow)">
+    <path d="M512 600
+      C512 600, 340 480, 340 370
+      C340 310, 380 260, 430 260
+      C465 260, 495 285, 512 310
+      C529 285, 559 260, 594 260
+      C644 260, 684 310, 684 370
+      C684 480, 512 600, 512 600Z"
+      fill="url(#heartGrad)" opacity="0.95"/>
   </g>
 
-  <!-- ECG Waveform line -->
+  <!-- ECG waveform across the heart area -->
   <polyline
-    points="280,590 380,590 420,590 440,590 460,540 480,650 500,510 520,620 540,560 560,590 600,590 700,590"
+    points="260,680 360,680 400,680 430,680 455,640 475,720 500,610 525,700 545,660 565,680 610,680 740,680"
     fill="none"
     stroke="white"
-    stroke-width="6"
+    stroke-width="7"
     stroke-linecap="round"
     stroke-linejoin="round"
-    opacity="0.7"/>
+    opacity="0.75"/>
 
-  <!-- Small dots on waveform -->
-  <circle cx="460" cy="540" r="4" fill="white" opacity="0.5"/>
-  <circle cx="500" cy="510" r="4" fill="white" opacity="0.5"/>
+  <!-- Second subtle waveform behind (depth effect) -->
+  <polyline
+    points="300,695 380,695 410,695 435,695 455,670 475,730 498,645 520,715 540,680 558,695 600,695 710,695"
+    fill="none"
+    stroke="white"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.2"/>
 
-  <!-- App name -->
-  <text x="512" y="720" text-anchor="middle" font-family="-apple-system, SF Pro Rounded, Helvetica Neue, sans-serif" font-size="72" font-weight="700" fill="white" letter-spacing="2">
-    TensioTracker
-  </text>
+  <!-- Small measurement indicators -->
+  <rect x="340" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
+  <text x="390" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.8">SYS</text>
 
-  <!-- Subtitle -->
-  <text x="512" y="775" text-anchor="middle" font-family="-apple-system, SF Pro Rounded, Helvetica Neue, sans-serif" font-size="32" font-weight="500" fill="white" opacity="0.6" letter-spacing="1">
-    Automesure tensionnelle
-  </text>
+  <rect x="462" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
+  <text x="512" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.8">DIA</text>
+
+  <rect x="584" y="780" width="100" height="36" rx="8" fill="white" opacity="0.15"/>
+  <text x="634" y="804" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.6">BPM</text>
 </svg>
