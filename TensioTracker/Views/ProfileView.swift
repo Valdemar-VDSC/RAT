@@ -2,8 +2,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(MeasurementViewModel.self) private var viewModel
-    @State private var showShareSheet = false
-    @State private var pdfURL: URL?
+    @State private var pdfExportItem: PDFExportItem?
 
     private let themeColor = Color(red: 0.102, green: 0.322, blue: 0.463)
 
@@ -89,13 +88,12 @@ struct ProfileView: View {
             .onDisappear {
                 viewModel.saveData()
             }
-            .sheet(isPresented: $showShareSheet) {
-                if let url = pdfURL {
-                    ShareSheet(items: [url])
-                }
+            .sheet(item: $pdfExportItem) { item in
+                ActivityView(url: item.url)
             }
         }
     }
+
     private func exportPDF() {
         let generator = PDFGenerator()
         let data = generator.generatePDF(
@@ -108,10 +106,36 @@ struct ProfileView: View {
             session: viewModel.currentSession
         )
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-        try? data.write(to: tempURL)
-        pdfURL = tempURL
-        showShareSheet = true
+        do {
+            try data.write(to: tempURL)
+            pdfExportItem = PDFExportItem(url: tempURL)
+        } catch {
+            print("Erreur écriture PDF: \(error)")
+        }
     }
+}
+
+// MARK: - PDF Export Item
+
+struct PDFExportItem: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
+// MARK: - Activity View (Share Sheet)
+
+struct ActivityView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: [url],
+            applicationActivities: nil
+        )
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Session Row
@@ -150,7 +174,6 @@ private struct SessionRowView: View {
                     .foregroundStyle(.tertiary)
             }
 
-            // Show how many readings were entered
             let totalReadings = session.days.flatMap { $0.morningReadings + $0.eveningReadings }.filter { $0.isComplete }.count
             Text("\(totalReadings)/18 mesures complétées")
                 .font(.caption2)
@@ -158,18 +181,6 @@ private struct SessionRowView: View {
         }
         .padding(.vertical, 2)
     }
-}
-
-// MARK: - Share Sheet
-
-struct ShareSheet: UIViewControllerRepresentable {
-    let items: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {
