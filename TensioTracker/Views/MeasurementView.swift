@@ -129,7 +129,7 @@ struct MeasurementView: View {
             } message: {
                 Text("Voulez-vous commencer une nouvelle session de 3 jours ? La session actuelle sera sauvegardée.")
             }
-            .onChange(of: viewModel.currentSession) { _, _ in
+            .onDisappear {
                 viewModel.saveData()
             }
         }

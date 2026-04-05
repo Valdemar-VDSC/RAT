@@ -87,7 +87,7 @@ struct ProfileView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.profile) { _, _ in
+            .onDisappear {
                 viewModel.saveData()
             }
             .sheet(isPresented: $showShareSheet) {
