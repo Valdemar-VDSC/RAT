@@ -3,7 +3,7 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(MeasurementViewModel.self) private var viewModel
     @State private var showShareSheet = false
-    @State private var exportText = ""
+    @State private var pdfURL: URL?
 
     private let themeColor = Color(red: 0.102, green: 0.322, blue: 0.463)
 
@@ -50,12 +50,11 @@ struct ProfileView: View {
                 // Export
                 Section {
                     Button {
-                        exportText = viewModel.exportSessionText()
-                        showShareSheet = true
+                        exportPDF()
                     } label: {
                         HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Exporter la session actuelle")
+                            Image(systemName: "doc.richtext")
+                            Text("Exporter le relevé en PDF")
                         }
                     }
                 } header: {
@@ -91,9 +90,27 @@ struct ProfileView: View {
                 viewModel.saveData()
             }
             .sheet(isPresented: $showShareSheet) {
-                ShareSheet(items: [exportText])
+                if let url = pdfURL {
+                    ShareSheet(items: [url])
+                }
             }
         }
+    }
+    private func exportPDF() {
+        let generator = PDFGenerator()
+        let data = generator.generatePDF(
+            session: viewModel.currentSession,
+            profile: viewModel.profile,
+            viewModel: viewModel
+        )
+        let fileName = generator.fileName(
+            profile: viewModel.profile,
+            session: viewModel.currentSession
+        )
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+        try? data.write(to: tempURL)
+        pdfURL = tempURL
+        showShareSheet = true
     }
 }
 

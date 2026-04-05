@@ -17,6 +17,7 @@
 		A10000080000000000000008 /* AverageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000080000000000000008 /* AverageCardView.swift */; };
 		A10000090000000000000009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009 /* Assets.xcassets */; };
 		A100000B000000000000000B /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000B000000000000000B /* SplashScreenView.swift */; };
+		A100000C000000000000000C /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000C000000000000000C /* PDFGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		A20000090000000000000009 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A200000A000000000000000A /* TensioTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TensioTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A200000B000000000000000B /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		A200000C000000000000000C /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				A40000030000000000000003 /* Models */,
 				A40000040000000000000004 /* ViewModels */,
 				A40000050000000000000005 /* Views */,
+				A40000080000000000000008 /* Services */,
 				A20000090000000000000009 /* Assets.xcassets */,
 			);
 			path = TensioTracker;
@@ -107,6 +110,14 @@
 				A20000080000000000000008 /* AverageCardView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		A40000080000000000000008 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A200000C000000000000000C /* PDFGenerator.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +199,7 @@
 				A10000070000000000000007 /* ReadingRowView.swift in Sources */,
 				A10000080000000000000008 /* AverageCardView.swift in Sources */,
 				A100000B000000000000000B /* SplashScreenView.swift in Sources */,
+				A100000C000000000000000C /* PDFGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
