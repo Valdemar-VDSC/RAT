@@ -4,6 +4,7 @@ import SwiftUI
 struct TensioTrackerApp: App {
     @State private var viewModel = MeasurementViewModel()
     @State private var showSplash = true
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -27,6 +28,11 @@ struct TensioTrackerApp: App {
                 .environment(viewModel)
                 .tint(Color("AccentColor"))
                 .opacity(showSplash ? 0 : 1)
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .inactive || phase == .background {
+                        viewModel.saveData()
+                    }
+                }
 
                 if showSplash {
                     SplashScreenView()

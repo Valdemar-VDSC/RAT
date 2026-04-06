@@ -85,7 +85,7 @@ struct ProfileView: View {
                     }
                 }
             }
-            .onDisappear {
+            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification)) { _ in
                 viewModel.saveData()
             }
             .sheet(item: $pdfExportItem) { item in

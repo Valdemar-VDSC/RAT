@@ -129,7 +129,7 @@ struct MeasurementView: View {
             } message: {
                 Text("Voulez-vous commencer une nouvelle session de 3 jours ? La session actuelle sera sauvegardée.")
             }
-            .onDisappear {
+            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidEndEditingNotification)) { _ in
                 viewModel.saveData()
             }
         }
