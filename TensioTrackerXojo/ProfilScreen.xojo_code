@@ -125,9 +125,12 @@ End
 		  
 		  Var pic As Picture = DataManager.GeneratePDFPicture()
 		  If pic <> Nil Then
+		    // Sauvegarder en PNG dans Documents et partager
+		    Var f As FolderItem = SpecialFolder.Documents.Child("releve_tensionnel.png")
+		    pic.Save(f, Picture.Formats.PNG)
+
 		    Var share As New MobileSharingPanel
-		    share.AddItem(pic)
-		    share.Present
+		    share.ShareFile(f, Self)
 		  End If
 		End Sub
 	#tag EndMethod
