@@ -91,7 +91,8 @@ struct MeasurementView: View {
                 .padding(.top, 8)
             }
             .background(Color(.systemGroupedBackground))
-            .scrollDismissesKeyboard(.interactively)
+            .dismissKeyboardOnTap()
+            .scrollDismissesKeyboard(.immediately)
             .navigationTitle("Mesures")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

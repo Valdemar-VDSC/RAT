@@ -74,7 +74,8 @@ struct ProfileView: View {
                     Label("Historique des sessions", systemImage: "clock.arrow.circlepath")
                 }
             }
-            .scrollDismissesKeyboard(.interactively)
+            .scrollDismissesKeyboard(.immediately)
+            .dismissKeyboardOnTap()
             .navigationTitle("Profil")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
