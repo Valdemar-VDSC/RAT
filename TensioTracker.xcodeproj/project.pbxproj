@@ -18,6 +18,7 @@
 		A10000090000000000000009 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009 /* Assets.xcassets */; };
 		A100000B000000000000000B /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000B000000000000000B /* SplashScreenView.swift */; };
 		A100000C000000000000000C /* PDFGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000C000000000000000C /* PDFGenerator.swift */; };
+		A100000D000000000000000D /* DismissKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000D000000000000000D /* DismissKeyboardOnTap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		A200000A000000000000000A /* TensioTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TensioTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A200000B000000000000000B /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		A200000C000000000000000C /* PDFGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFGenerator.swift; sourceTree = "<group>"; };
+		A200000D000000000000000D /* DismissKeyboardOnTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissKeyboardOnTap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			children = (
 				A20000070000000000000007 /* ReadingRowView.swift */,
 				A20000080000000000000008 /* AverageCardView.swift */,
+				A200000D000000000000000D /* DismissKeyboardOnTap.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				A10000080000000000000008 /* AverageCardView.swift in Sources */,
 				A100000B000000000000000B /* SplashScreenView.swift in Sources */,
 				A100000C000000000000000C /* PDFGenerator.swift in Sources */,
+				A100000D000000000000000D /* DismissKeyboardOnTap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
