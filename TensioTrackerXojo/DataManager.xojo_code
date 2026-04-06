@@ -133,80 +133,76 @@ Protected Module DataManager
 		  pg.DrawRectangle(kMargin, y, contentW, 58)
 		  
 		  pg.DrawingColor = Color.Black
-		  pg.FontSize = 9
-		  pg.Bold = False
+		  pg.Font = Font.SystemFont(9)
 		  Var px As Double = kMargin + 8
 		  Var py As Double = y + 10
-		  
+
 		  pg.DrawText("Nom : ", px, py)
 		  Var nameX As Double = px + pg.TextWidth("Nom : ")
 		  If CurrentProfile.mLastName <> "" Then
-		    pg.Bold = True
+		    pg.Font = Font.BoldSystemFont(9)
 		    pg.DrawText(CurrentProfile.mLastName, nameX, py)
-		    pg.Bold = False
+		    pg.Font = Font.SystemFont(9)
 		  End If
-		  
+
 		  Var prenomLabel As String = "   Prénom : "
 		  Var prenomX As Double = nameX + pg.TextWidth(CurrentProfile.mLastName) + pg.TextWidth(prenomLabel)
 		  pg.DrawText(prenomLabel, nameX + pg.TextWidth(CurrentProfile.mLastName), py)
 		  If CurrentProfile.mFirstName <> "" Then
-		    pg.Bold = True
+		    pg.Font = Font.BoldSystemFont(9)
 		    pg.DrawText(CurrentProfile.mFirstName, prenomX, py)
-		    pg.Bold = False
+		    pg.Font = Font.SystemFont(9)
 		  End If
-		  
+
 		  py = py + 16
 		  pg.DrawText("Période du relevé : du ", px, py)
 		  Var periodX As Double = px + pg.TextWidth("Période du relevé : du ")
 		  Var d1 As DayMeasurement = CurrentSession.mDays(0)
 		  Var d3 As DayMeasurement = CurrentSession.mDays(2)
 		  If d1.mDate <> Nil Then
-		    pg.Bold = True
+		    pg.Font = Font.BoldSystemFont(9)
 		    pg.DrawText(d1.mDate.ToString(DateTime.FormatStyles.Short, DateTime.FormatStyles.None), periodX, py)
-		    pg.Bold = False
+		    pg.Font = Font.SystemFont(9)
 		  Else
 		    pg.DrawText("……………", periodX, py)
 		  End If
-		  
+
 		  py = py + 16
 		  pg.DrawText("Traitement : ", px, py)
 		  Var treatX As Double = px + pg.TextWidth("Traitement : ")
 		  If CurrentProfile.mMedications <> "" Then
-		    pg.Bold = True
+		    pg.Font = Font.BoldSystemFont(9)
 		    Var medText As String = CurrentProfile.mMedications.ReplaceAll(EndOfLine, ", ")
 		    pg.DrawText(medText, treatX, py)
-		    pg.Bold = False
+		    pg.Font = Font.SystemFont(9)
 		  End If
-		  
+
 		  y = y + 62
-		  
+
 		  // --- 2. Important Notice ---
-		  pg.FontSize = 9
 		  pg.DrawingColor = darkBlue
-		  pg.Bold = True
+		  pg.Font = Font.BoldSystemFont(9)
 		  pg.DrawText("Important : Montrer ce document", kMargin + 12, y)
 		  y = y + 14
-		  pg.Bold = False
+		  pg.Font = Font.SystemFont(9)
 		  pg.DrawText("     - au pharmacien lors de votre venue à l'officine", kMargin + 12, y)
 		  y = y + 14
 		  pg.DrawText("     - au médecin à la prochaine consultation", kMargin + 12, y)
 		  y = y + 18
-		  
+
 		  // --- 3. Title Bar ---
 		  pg.DrawingColor = greenTitle
 		  pg.FillRectangle(kMargin, y, contentW, 30)
 		  pg.DrawingColor = Color.White
-		  pg.Bold = True
-		  pg.FontSize = 15
+		  pg.Font = Font.BoldSystemFont(15)
 		  Var titleText As String = "RELEVÉ D'AUTOMESURE TENSIONNELLE"
 		  Var titleW As Double = pg.TextWidth(titleText)
 		  pg.DrawText(titleText, kMargin + (contentW - titleW) / 2, y + 20)
 		  y = y + 36
-		  
+
 		  // --- 4. Protocol Bullets ---
 		  pg.DrawingColor = Color.Black
-		  pg.FontSize = 8.5
-		  pg.Bold = False
+		  pg.Font = Font.SystemFont(9)
 		  
 		  Var bullets() As String
 		  bullets.Add("3 mesures consécutives (à quelques minutes d'intervalle) le matin avant de prendre ses médicaments")
@@ -233,12 +229,11 @@ Protected Module DataManager
 		    pg.DrawingColor = blueBorder
 		    pg.FillRectangle(kMargin, y, contentW, headerH)
 		    pg.DrawingColor = Color.White
-		    pg.Bold = True
-		    pg.FontSize = 11
+		    pg.Font = Font.BoldSystemFont(11)
 		    pg.DrawText("Jour " + Str(dayIdx + 1), kMargin + 10, y + 16)
-		    
+
 		    // Matin / Soir labels
-		    pg.FontSize = 10
+		    pg.Font = Font.BoldSystemFont(10)
 		    Var matinLabelW As Double = pg.TextWidth("Matin")
 		    Var matinCenterX As Double = kMargin + labelColW + (3 * dataColW - matinLabelW) / 2
 		    pg.DrawText("Matin", matinCenterX, y + 16)
@@ -256,8 +251,7 @@ Protected Module DataManager
 		    pg.DrawRectangle(kMargin, y, contentW, subHeaderH)
 		    
 		    pg.DrawingColor = &c666666
-		    pg.Bold = False
-		    pg.FontSize = 7.5
+		    pg.Font = Font.SystemFont(8)
 		    Var colHeaders() As String = Array("systolique", "diastolique", "pouls")
 		    
 		    For i As Integer = 0 To 2
@@ -292,8 +286,7 @@ Protected Module DataManager
 		      
 		      // Mesure label
 		      pg.DrawingColor = darkBlue
-		      pg.Bold = True
-		      pg.FontSize = 8.5
+		      pg.Font = Font.BoldSystemFont(9)
 		      Var mesureLabel As String = "Mesure " + Str(rowIdx + 1)
 		      Var mlW As Double = pg.TextWidth(mesureLabel)
 		      pg.DrawText(mesureLabel, kMargin + (labelColW - mlW) / 2, y + 14)
@@ -301,17 +294,16 @@ Protected Module DataManager
 		      // Morning values
 		      Var mr As BloodPressureReading = day.mMorningReadings(rowIdx)
 		      Var mVals() As Integer = Array(mr.mSystolic, mr.mDiastolic, mr.mPulse)
-		      pg.FontSize = 10
 		      For i As Integer = 0 To 2
 		        Var cx As Double = kMargin + labelColW + i * dataColW
 		        Var valText As String
 		        If mVals(i) > 0 Then
 		          pg.DrawingColor = Color.Black
-		          pg.Bold = True
+		          pg.Font = Font.BoldSystemFont(10)
 		          valText = Str(mVals(i))
 		        Else
 		          pg.DrawingColor = &cCCCCCC
-		          pg.Bold = False
+		          pg.Font = Font.SystemFont(10)
 		          valText = "– – –"
 		        End If
 		        Var vw As Double = pg.TextWidth(valText)
@@ -326,11 +318,11 @@ Protected Module DataManager
 		        Var valText As String
 		        If eVals(i) > 0 Then
 		          pg.DrawingColor = Color.Black
-		          pg.Bold = True
+		          pg.Font = Font.BoldSystemFont(10)
 		          valText = Str(eVals(i))
 		        Else
 		          pg.DrawingColor = &cCCCCCC
-		          pg.Bold = False
+		          pg.Font = Font.SystemFont(10)
 		          valText = "– – –"
 		        End If
 		        Var vw As Double = pg.TextWidth(valText)
@@ -367,15 +359,13 @@ Protected Module DataManager
 		  
 		  // Moyenne Systolique
 		  pg.DrawingColor = Color.Black
-		  pg.Bold = True
-		  pg.FontSize = 8
+		  pg.Font = Font.BoldSystemFont(8)
 		  pg.DrawText("MOYENNE", kMargin + 8, y + 12)
 		  pg.DrawText("SYSTOLIQUE *", kMargin + 8, y + 22)
-		  
+
 		  Var sysAvg As String = FormatAverage(GeneralAverageSys())
 		  pg.DrawingColor = greenDark
-		  pg.FontSize = 14
-		  pg.Bold = True
+		  pg.Font = Font.BoldSystemFont(14)
 		  Var sysW As Double = pg.TextWidth(sysAvg)
 		  pg.DrawText(sysAvg, kMargin + (avgColW - sysW) / 2, y + 42)
 		  
@@ -386,14 +376,13 @@ Protected Module DataManager
 		  
 		  // Moyenne Diastolique
 		  pg.DrawingColor = Color.Black
-		  pg.FontSize = 8
+		  pg.Font = Font.BoldSystemFont(8)
 		  pg.DrawText("MOYENNE", kMargin + avgColW + 8, y + 12)
 		  pg.DrawText("DIASTOLIQUE *", kMargin + avgColW + 8, y + 22)
-		  
+
 		  Var diaAvg As String = FormatAverage(GeneralAverageDia())
 		  pg.DrawingColor = greenDark
-		  pg.FontSize = 14
-		  pg.Bold = True
+		  pg.Font = Font.BoldSystemFont(14)
 		  Var diaW As Double = pg.TextWidth(diaAvg)
 		  pg.DrawText(diaAvg, kMargin + avgColW + (avgColW - diaW) / 2, y + 42)
 		  
@@ -401,8 +390,7 @@ Protected Module DataManager
 		  
 		  // --- 7. Footer Note ---
 		  pg.DrawingColor = &c666666
-		  pg.FontSize = 7
-		  pg.Bold = False
+		  pg.Font = Font.SystemFont(7)
 		  pg.DrawText("* additionner toutes les mesures, systoliques ou diastoliques, et diviser par 18", kMargin, y + 8)
 		  
 		  Return p

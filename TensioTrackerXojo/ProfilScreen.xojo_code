@@ -125,9 +125,10 @@ End
 		  
 		  Var pic As Picture = DataManager.GeneratePDFPicture()
 		  If pic <> Nil Then
-		    Var share As New MobileSharingPanel
-		    share.AddPicture(pic)
-		    share.Show
+		    Var items() As Variant
+		    items.Add(pic)
+		    Var share As New MobileSharingPanel(items)
+		    share.ShowModal
 		  End If
 		End Sub
 	#tag EndMethod
