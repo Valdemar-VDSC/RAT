@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2471A3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0D3559;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heartGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D5E8F0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- Subtle radial glow behind heart -->
+  <circle cx="512" cy="430" r="400" fill="white" opacity="0.06"/>
+  <circle cx="512" cy="430" r="320" fill="white" opacity="0.05"/>
+
+  <!-- Outer ring -->
+  <circle cx="512" cy="430" r="370" fill="none" stroke="white" stroke-width="4" opacity="0.15"/>
+
+  <!-- Progress arc 3/4 -->
+  <circle cx="512" cy="430" r="370" fill="none" stroke="white" stroke-width="6" opacity="0.5"
+    stroke-dasharray="1745 582"
+    stroke-linecap="round"
+    transform="rotate(-90 512 430)"/>
+
+  <!-- Heart (scaled up ~1.45x, centered) -->
+  <g filter="url(#glow)">
+    <path d="M512 690
+      C512 690, 262 515, 262 355
+      C262 278, 320 210, 392 210
+      C440 210, 480 245, 512 280
+      C544 245, 584 210, 632 210
+      C704 210, 762 278, 762 355
+      C762 515, 512 690, 512 690Z"
+      fill="url(#heartGrad)" opacity="0.95"/>
+  </g>
+
+  <!-- ECG waveform -->
+  <polyline
+    points="120,790 250,790 310,790 355,790 390,730 420,850 460,690 500,830 535,760 560,790 620,790 900,790"
+    fill="none"
+    stroke="white"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.75"/>
+
+  <!-- Second subtle waveform (depth) -->
+  <polyline
+    points="160,815 280,815 330,815 365,815 395,770 420,870 458,720 495,850 530,785 555,815 610,815 870,815"
+    fill="none"
+    stroke="white"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.2"/>
+
+  <!-- Measurement indicators -->
+  <rect x="300" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="360" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.8">SYS</text>
+
+  <rect x="452" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="512" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.8">DIA</text>
+
+  <rect x="604" y="890" width="120" height="44" rx="10" fill="white" opacity="0.15"/>
+  <text x="664" y="919" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="24" font-weight="700" fill="white" opacity="0.6">BPM</text>
+</svg>
