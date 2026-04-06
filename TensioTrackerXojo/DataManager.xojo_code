@@ -133,8 +133,8 @@ Protected Module DataManager
 		  pg.DrawRectangle(kMargin, y, contentW, 58)
 		  
 		  pg.DrawingColor = Color.Black
-		  pg.Font.Size = 9
-		  pg.Font.BoldSystemFont = False
+		  pg.FontSize = 9
+		  pg.Bold = False
 		  Var px As Double = kMargin + 8
 		  Var py As Double = y + 10
 		  
@@ -194,7 +194,7 @@ Protected Module DataManager
 		  
 		  // --- 3. Title Bar ---
 		  pg.DrawingColor = greenTitle
-		  pg.FillRoundRectangle(kMargin, y, contentW, 30, 4, 4)
+		  pg.FillRectangle(kMargin, y, contentW, 30)
 		  pg.DrawingColor = Color.White
 		  pg.Bold = True
 		  pg.FontSize = 15
@@ -255,7 +255,7 @@ Protected Module DataManager
 		    pg.PenSize = 0.5
 		    pg.DrawRectangle(kMargin, y, contentW, subHeaderH)
 		    
-		    pg.DrawingColor = Color.DarkGray
+		    pg.DrawingColor = &c666666
 		    pg.Bold = False
 		    pg.FontSize = 7.5
 		    Var colHeaders() As String = Array("systolique", "diastolique", "pouls")
@@ -282,7 +282,7 @@ Protected Module DataManager
 		      If rowIdx Mod 2 = 0 Then
 		        pg.DrawingColor = Color.White
 		      Else
-		        pg.DrawingColor = New Color(&hF7F7F7)
+		        pg.DrawingColor = &cF7F7F7
 		      End If
 		      pg.FillRectangle(kMargin, y, contentW, rowH)
 		      
@@ -310,7 +310,7 @@ Protected Module DataManager
 		          pg.Bold = True
 		          valText = Str(mVals(i))
 		        Else
-		          pg.DrawingColor = Color.LightGray
+		          pg.DrawingColor = &cCCCCCC
 		          pg.Bold = False
 		          valText = "– – –"
 		        End If
@@ -329,7 +329,7 @@ Protected Module DataManager
 		          pg.Bold = True
 		          valText = Str(eVals(i))
 		        Else
-		          pg.DrawingColor = Color.LightGray
+		          pg.DrawingColor = &cCCCCCC
 		          pg.Bold = False
 		          valText = "– – –"
 		        End If
@@ -400,7 +400,7 @@ Protected Module DataManager
 		  y = y + avgBoxH + 6
 		  
 		  // --- 7. Footer Note ---
-		  pg.DrawingColor = Color.DarkGray
+		  pg.DrawingColor = &c666666
 		  pg.FontSize = 7
 		  pg.Bold = False
 		  pg.DrawText("* additionner toutes les mesures, systoliques ou diastoliques, et diviser par 18", kMargin, y + 8)
